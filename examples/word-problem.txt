@@ -1,0 +1,37 @@
+Question
+--------
+
+The sum of the two numbers is 40, and their difference is 20. Find the numbers.
+
+Solution
+--------
+
+Let the numbers be a and b. Now, as per the situation,
+
+    a + b = 40        (i)
+
+    a – b = 20        (ii)
+
+We can write (a = 40 – b), from equation (i).
+
+Now, putting the value of a in equation (ii), we get,
+
+    (40 – b) – b = 20
+
+    40 – 2b = 20
+
+    2b = 40 – 20 = 20
+
+    b = 20/2 = 10
+
+    b = 10
+
+and
+
+    a = 40 – b
+
+    a = 40 – 10
+
+    a = 30
+
+Therefore, the two numbers are 30 and 10.
