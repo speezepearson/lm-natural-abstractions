@@ -1,36 +1,36 @@
 Question
 --------
 
-The sum of the two numbers is 40, and their difference is 20. Find the numbers.
+The sum of two numbers is 40, and their difference is 20. Find the numbers.
 
 Solution
 --------
 
-Let the numbers be a and b. Now, as per the situation,
+Let the numbers be a and b. We are given:
 
     a + b = 40        (i)
 
-    a – b = 20        (ii)
+    a - b = 20        (ii)
 
-We can write (a = 40 – b), from equation (i).
+We can rewrite equation (i) as:
 
-Now, putting the value of a in equation (ii), we get,
+    a = 40 - b        (iii)
 
-    (40 – b) – b = 20
+Now, substituting that value for "a" in equation (ii), we get
 
-    40 – 2b = 20
+    (40 - b) - b = 20
 
-    2b = 40 – 20 = 20
+    40 - 2b = 20
+
+    2b = 40 - 20 = 20
 
     b = 20/2 = 10
 
     b = 10
 
-and
+Substituting that into equation (iii), we get
 
-    a = 40 – b
-
-    a = 40 – 10
+    a = 40 - 10
 
     a = 30
 
