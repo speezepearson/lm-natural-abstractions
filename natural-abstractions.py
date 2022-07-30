@@ -28,6 +28,7 @@ def step(sentence: str, tokenizer: RobertaTokenizer, model: RobertaForMaskedLM, 
 
 
 def main(args):
+    n_iters: int = args.iters
     seed: Optional[int] = args.seed
     init_content_path: Path = args.init_content
 
@@ -38,13 +39,13 @@ def main(args):
 
     sentence: str = init_content_path.read_text()
 
-    iter = 0
-    while True:
-        print(json.dumps({"iter": iter, "str": sentence}))
+    print(json.dumps({"iter": 0, "str": sentence}))
+    for iter in range(1, n_iters+1):
         sentence = step(sentence, roberta_tokenizer, roberta_model, rng)
-        iter += 1
+        print(json.dumps({"iter": iter, "str": sentence}))
 
 parser = argparse.ArgumentParser()
+parser.add_argument('--iters', type=int, default=1000)
 parser.add_argument('--seed', type=int, default=None)
 parser.add_argument('init_content', type=Path)
 
