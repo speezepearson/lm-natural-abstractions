@@ -1,7 +1,7 @@
 import argparse
 import json
 from pathlib import Path
-from typing import Optional
+from typing import Iterator, Optional, Tuple
 import numpy as np
 import torch
 from transformers import RobertaTokenizer, RobertaForMaskedLM
@@ -26,26 +26,30 @@ def step(sentence: str, tokenizer: RobertaTokenizer, model: RobertaForMaskedLM, 
     new_str = tokenizer.decode(new_toks.tolist()[1:-1])
     return new_str
 
+def iter_seeds(start_seed: int) -> Iterator[int]:
+    seed = start_seed
+    while True:
+        yield seed
+        seed = np.random.RandomState(seed).randint(0, 2**32-1)
 
 def main(args):
-    n_iters: int = args.iters
-    seed: Optional[int] = args.seed
-    init_content_path: Path = args.init_content
-
-    rng = np.random.RandomState(seed)
+    n_iters: int = args.n_iters
+    seeds: Iterator[int] = iter_seeds(args.seed)
+    init_content: str = args.init_content.read_text()
 
     roberta_tokenizer = RobertaTokenizer.from_pretrained('roberta-large')
     roberta_model = RobertaForMaskedLM.from_pretrained('roberta-large')
 
-    sentence: str = init_content_path.read_text()
+    sentence = init_content
+    rng = np.random.RandomState()
 
-    print(json.dumps({"iter": 0, "str": sentence}))
-    for iter in range(1, n_iters+1):
+    for seed, _ in zip(seeds, range(n_iters)):
+        print(json.dumps({'sentence': sentence, 'next_seed': seed}))
+        rng.seed(seed)
         sentence = step(sentence, roberta_tokenizer, roberta_model, rng)
-        print(json.dumps({"iter": iter, "str": sentence}))
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--iters', type=int, default=1000)
+parser.add_argument('--n-iters', type=int, default=1000)
 parser.add_argument('--seed', type=int, default=None)
 parser.add_argument('init_content', type=Path)
 
